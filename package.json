@@ -1,0 +1,16 @@
+{
+  "name": "awin-webmaster-api",
+  "version": "1.0.0",
+  "main": "AwinApi.js",
+  "description": "awin.com API integration",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nebaz/awin-webmaster-api.git"
+  },
+  "homepage": "http://github.com/nebaz/awin-webmaster-api",
+  "author": "Nebaz <nebaz@ya.ru>",
+  "license": "MIT",
+  "dependencies": {
+    "node-fetch": "~2.6.9"
+  }
+}
