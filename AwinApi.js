@@ -43,6 +43,8 @@ class AwinApi {
         it.currency = it.commissionAmount.currency;
         it.subaccount = it.clickRefs?.clickRef;
         it.subaccount2 = it.clickRefs?.clickRef2;
+        it.subaccount3 = it.clickRefs?.clickRef3;
+        it.subaccount4 = it.clickRefs?.clickRef4;
         it.leadTime = new Date(it.transactionDate).valueOf();
       });
     }
@@ -85,7 +87,7 @@ class AwinApi {
         offerName: it.advertiserName,
         currency: it.currency,
         clicks: it.clicks || 0,
-        leads: it.totalNo || 0,
+        leads: (it.declinedNo || 0) + (it.pendingNo || 0) + (it.confirmedNo || 0),
         leadsRejected: it.declinedNo || 0,
         leadsOpen: it.pendingNo || 0,
         leadsApproved: it.confirmedNo || 0,
