@@ -11,6 +11,14 @@ class AwinApi {
     this.token = token;
   }
 
+  async getOfferData(offerId, relationship) {
+    let method = 'publishers/' + this.userId + '/programmedetails?advertiserId=' + offerId + '&';
+    if (relationship) {
+      method += 'relationship=' + relationship + '&';
+    }
+    return await this.apiRequest(method);
+  }
+
   async getOffersData(countryCode, relationship) {
     let method = 'publishers/' + this.userId + '/programmes?';
     if (countryCode) {
@@ -104,8 +112,13 @@ class AwinApi {
     return apiData;
   }
 
-  getOfferLinkByOfferId(offerId) {
-    return {ok: true, result: 'https://www.awin1.com/awclick.php?id=' + this.userId + '&mid=' + offerId};
+  async getOfferLinkByOfferId(offerId) {
+    let result = await this.getOfferData(offerId, 'joined');
+    if (result.ok && result?.result.programmeInfo && result.result.programmeInfo.linkStatus !== 'offline') {
+      return {ok: true, result: 'https://www.awin1.com/awclick.php?id=' + this.userId + '&mid=' + offerId};
+    } else {
+      return {ok: false, errorMessage: result.errorMessage || 'error'};
+    }
   }
 
   #formatDate(timestamp) {
